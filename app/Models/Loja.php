@@ -25,7 +25,7 @@ class Loja extends Model
         return $this->hasMany(Produto::class, 'loja_id');
     }
 
-    public function funcionarios()
+    public function funcionario()
     {
         return $this->hasMany(Funcionario::class, 'loja_id');
     }

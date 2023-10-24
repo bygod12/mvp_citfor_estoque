@@ -4,20 +4,23 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Categorium;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoriumController extends Controller
 {
-    public function index($id)
+    public function index()
     {
 
-        $refeicoes = Categorium::whereHas('user', function ($query) use($id) {
-            $query->where('id','=', $id); // Filtra as refeições para usuários com ID 11
-        })
-            ->with('alimentos') // Carrega a relação de alimentos
-            ->get();
+        $user = Auth::user();
+        $id = $user->funcionario->loja->id;
+        $categorias = Categorium::whereHas('loja', function ($query) use ($id) {
+            $query->where('loja_id', '=', $id);
+        })->get();
 
-        return response()->json($refeicoes, 200);
+
+        return response()->json($categorias, 200);
     }
 
     public function show($id)
@@ -27,15 +30,26 @@ class CategoriumController extends Controller
 
     public function store(Request $request)
     {
-        $refeicao = Categorium::create($request->all());
-        return response()->json($refeicao, 201);
+
+        // Criação de uma nova categoria com os dados do formulário
+        $categoria = new Categorium();
+        $categoria->nome = $request->nome;
+        $categoria->descricao = $request->descricao;
+
+        $user = Auth::user();
+        $categoria->loja_id = $user->funcionario->loja->id;
+
+        // Salvar a categoria no banco de dados
+        $categoria->save();
+
+        return response()->json($categoria, 201);
     }
 
     public function update(Request $request, $id)
     {
-        $refeicao = Categorium::findOrFail($id);
-        $refeicao->update($request->all());
-        return response()->json($refeicao, 200);
+        $categoria = Categorium::findOrFail($id);
+        $categoria->update($request->all());
+        return response()->json($categoria, 200);
     }
 
     public function destroy($id)

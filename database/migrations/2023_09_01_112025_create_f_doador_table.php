@@ -18,7 +18,6 @@ return new class extends Migration
             $table->unsignedBigInteger('loja_id');
             $table->foreign('loja_id')->references('id')->on('loja');
             $table->date('hora_entrega');
-            $table->boolean('entregue');
             $table->string('nomedoador', 80);
             $table->string('email', 80)->nullable();;
 
@@ -27,6 +26,7 @@ return new class extends Migration
             $table->string('num_casa', 10)->nullable();;
             $table->string('numero_1', 45)->nullable();
             $table->string('numero_2', 45)->nullable();
+            $table->boolean('entregue');
             $table->timestamps();
             $table->softDeletes($column = 'deleted_at', $precision = 0);
 

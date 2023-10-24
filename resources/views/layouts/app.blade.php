@@ -350,8 +350,11 @@
                     data: 'categoria',
                     name: 'categoria.nome',
                     render: function (data, type, full, meta) {
-
-                        return data.nome;
+                        if (data) {
+                            return data.nome;
+                        } else {
+                            return '';
+                        }
                     }
                 },
                 {

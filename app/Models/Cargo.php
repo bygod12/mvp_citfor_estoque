@@ -21,4 +21,5 @@ class Cargo extends Model
     public function funcionario()
     {
         return $this->hasOne(Funcionario::class, 'cargo_id');
-    }}
+    }
+}

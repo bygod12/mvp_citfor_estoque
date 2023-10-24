@@ -31,6 +31,8 @@ return new class extends Migration
             $table->decimal('valor', 10);
             $table->integer('qtd');
             $table->string('foto', 2048)->nullable();
+            $table->decimal('custo', 10)->nullable();
+
             $table->timestamps();
             $table->softDeletes($column = 'deleted_at', $precision = 0);
 

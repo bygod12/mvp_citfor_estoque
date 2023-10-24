@@ -10,7 +10,6 @@ use Spatie\Permission\Traits\HasRoles;
 class Cliente extends Model
 {
     use HasFactory;
-
     use SoftDeletes;
     protected $table = 'cliente';
 

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('numero', 45)->nullable();
             $table->string('cnpj', 45)->nullable();
             $table->string('foto', 225)->nullable();
+            $table->boolean('isCustos')->default(true);
 
             $table->timestamps();
             $table->softDeletes($column = 'deleted_at', $precision = 0);
